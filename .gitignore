@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+### Project specific ###
+
+.idea/
+
+# project config file
+config.py
