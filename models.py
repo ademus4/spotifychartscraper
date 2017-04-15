@@ -1,6 +1,8 @@
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import declarative_base
 
+from utils import db_connect
+
 Base = declarative_base()
 
 
@@ -13,3 +15,6 @@ class Date(Base):
     month = Column(Integer)
     year = Column(Integer)
     day_of_week = Column(Integer)
+
+
+db_connect(Base)
