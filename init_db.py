@@ -18,8 +18,9 @@ def main():
         print("Error: database already contains 100 dates")
         return
 
-    # otherwise initialise the db with 100 days from today
-    dates = [datetime.today() - timedelta(days=x) for x in range(0, 100)]
+    # otherwise initialise the db with 100 days from yesterday
+    date_end = datetime.today() - timedelta(days=1)
+    dates = [date_end - timedelta(days=x) for x in range(0, 100)]
     for item in dates:
         date = {
             'date': item.date(),
