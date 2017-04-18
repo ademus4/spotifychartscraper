@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.exc import IntegrityError, OperationalError
 from datetime import datetime, timedelta
 
-from models import Date, Artist, Track, Chart
+from models import Date, Artist, Track, Chart, Link
 from utils import db_connect, get_or_create
 
 Base = declarative_base()
@@ -26,6 +26,7 @@ def main():
 
     region = 'gb'
     dates = session.query(Date).all()
+    dates = filter(lambda x: len(x.entries) < 200, dates)
 
     for date in dates:
         date_str = datetime.strftime(date.date, '%Y-%m-%d')
@@ -56,10 +57,15 @@ def save_objects(session, data, region, date):
 
     track_vals = {
         'title': track_name,
-        'url': url,
         'artist': artist
     }
     track = get_or_create(session, Track, **track_vals)
+
+    link_vals = {
+        'url': url,
+        'track': track
+    }
+    link = get_or_create(session, Link, **link_vals)
 
     chart_vals = {
         'type': 'top200',

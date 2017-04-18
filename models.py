@@ -19,6 +19,13 @@ class Date(Base):
     entries = relationship("Chart", backref="date")
 
 
+class Link(Base):
+    __tablename__ = 'link'
+
+    id = Column(Integer, primary_key=True)
+    url = Column(String(500))
+    track_id = Column(Integer, ForeignKey('track.id'))
+
 class Artist(Base):
     __tablename__ = 'artist'
 
@@ -32,8 +39,8 @@ class Track(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(250))
-    url = Column(String(500))
     entries = relationship("Chart", backref="track")
+    links = relationship("Link", backref="track")
     artist_id = Column(Integer, ForeignKey('artist.id'))
 
 
